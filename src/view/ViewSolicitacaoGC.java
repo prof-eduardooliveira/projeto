@@ -30,7 +30,7 @@ import model.ModelServico;
 import model.ModelSituacao;
 import model.ModelSolicitacaoGC;
 import model.ModelUsuario;
-import sun.swing.table.DefaultTableCellHeaderRenderer;
+//import sun.swing.table.DefaultTableCellHeaderRenderer;
 
 /**
  *
