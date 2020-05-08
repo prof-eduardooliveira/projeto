@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jScrollPane2" alignment="0" pref="1129" max="32767" attributes="0"/>
+                      <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane3" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="jbEnviarEmail" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <Component id="jbEnviarEmail1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="431" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane3" min="-2" pref="163" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane4" min="-2" pref="163" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="jLabel3" min="-2" pref="21" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jbEnviarEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jbEnviarEmail1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="27" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="13" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Eduardo Gomes de Oliveira"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="13" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nielson Soares "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel3">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="13" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Tiago Bittencourt Nazare"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jTextArea2">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="9"/>
+                <Property name="tabSize" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="Possui gradua&#xe7;&#xe3;o em Sistemas de Informa&#xe7;&#xe3;o pelo Instituto Doctum de Educa&#xe7;&#xe3;o e Tecnologia (2008) e Especializa&#xe7;&#xe3;o em Redes de Comunica&#xe7;&#xe3;o pela Universidade Gama Filho. Atualmente &#xe9; professor titular - Faculdades Integradas de Cataguases curso de Engenharia de Produ&#xe7;&#xe3;o, Engenharia El&#xe9;trica, Administra&#xe7;&#xe3;o, Ci&#xea;ncias Cont&#xe1;beis e Log&#xed;stica, atuando ainda como respons&#xe1;vel pelo departamento de Inform&#xe1;tica - Analista de T.I III - Faculdades Integradas de Cataguases. Professor titular das Faculdades Unificadas Doctum de Cataguases - curso: Sistemas de Informa&#xe7;&#xe3;o. Tem experi&#xea;ncia na &#xe1;rea de Computa&#xe7;&#xe3;o, com &#xea;nfase em Servidores Linux, gest&#xe3;o de processo utilizando simula&#xe7;&#xe3;o computacional com auxilio do software ARENA e Intelig&#xea;ncia Artificial. Mestre em Gest&#xe3;o de Sistemas de Engenharia pela UCP (Universidade Cat&#xf3;lica de Petr&#xf3;polis). Respons&#xe1;vel pela empresa J&#xfa;nior (FIC JUNIOR) e eventos relacionados a STARTUP."/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jTextArea3">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="9"/>
+                <Property name="tabSize" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="Mestre em Engenharia El&#xe9;trica pela COPPE - Universidade Federal do Rio de Janeiro, na &#xe1;rea de Redes de Computadores, sendo integrante do Grupo de Teleinform&#xe1;tica e Automa&#xe7;&#xe3;o (GTA) dessa institui&#xe7;&#xe3;o; Especialista em MBA em Gest&#xe3;o de Projetos de TI pela Universidade Federal de Juiz de Fora; Licenciado em Matem&#xe1;tica pela Universidade de Franca e Bacharel em Sistemas de Informa&#xe7;&#xe3;o pelas Faculdades Unificadas de Cataguases. Tem experi&#xea;ncia na &#xe1;rea de Ci&#xea;ncia da Computa&#xe7;&#xe3;o, com &#xea;nfase em Desenvolvimento de Software, Redes de Computadores e Desenvolvimento Mobile. Possui interesse nos seguintes temas de pesquisa: Inform&#xe1;tica na Educa&#xe7;&#xe3;o, Computa&#xe7;&#xe3;o Ub&#xed;qua e Pervasiva, Internet das Coisas, Intera&#xe7;&#xe3;o Humano-Computador e Realidade Virtual e Aumentada."/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane4">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="jTextArea4">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="9"/>
+                <Property name="tabSize" type="int" value="4"/>
+                <Property name="text" type="java.lang.String" value="Possui gradua&#xe7;&#xe3;o em Engenharia de Controle e Automa&#xe7;&#xe3;o pelo Centro Federal de Educa&#xe7;&#xe3;o Tecnol&#xf3;gica de Minas Gerais (2015) e Mestrado em Modelagem Computacional pela Universidade Federal de Juiz de Fora (2018). Tem experi&#xea;ncia na &#xe1;rea de Engenharia El&#xe9;trica, com &#xea;nfase em Controle e Automa&#xe7;&#xe3;o, atuando principalmente nos seguintes temas: matlab, microcontroladores pic e sistemas din&#xe2;micos. Experi&#xea;ncia em Intelig&#xea;ncia Computacional, atuando principalmente nos seguintes temas: aprendizado de m&#xe1;quina e minera&#xe7;&#xe3;o de dados. Grande conhecimento em ferramentas de programa&#xe7;&#xe3;o como C, C++, Java e Python. E de programa&#xe7;&#xe3;o web como PHP, HTML, CSS e JavaScript. Conhecimento tamb&#xe9;m em Banco de Dados (MySQL). Atualmente, &#xe9; professor substituto do Departamento de Computa&#xe7;&#xe3;o e Mec&#xe2;nica no Centro Federal de Educa&#xe7;&#xe3;o Tecnol&#xf3;gica de Minas Gerais (CEFET-MG), campus Leopoldina, e tamb&#xe9;m professor no curso de Sistemas de Informa&#xe7;&#xe3;o na Rede de Ensino Doctum - Faculdades Unificadas de Cataguases. "/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JButton" name="jbEnviarEmail">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/icons 16 x 16/email.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Enviar E-mail"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEnviarEmailActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbEnviarEmail1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/imagens/icons 16 x 16/shape_square_edit.png"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Enviar Zap"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbEnviarEmail1ActionPerformed"/>
+          </Events>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>
