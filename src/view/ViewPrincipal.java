@@ -543,6 +543,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void jmICadastroServicos11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmICadastroServicos11ActionPerformed
         // TODO add your handling code here:
+        new ViewGrupoSolicitacao().setVisible(true);
     }//GEN-LAST:event_jmICadastroServicos11ActionPerformed
 
     private void jmICadastroServicos12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmICadastroServicos12ActionPerformed

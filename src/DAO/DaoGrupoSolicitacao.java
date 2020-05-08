@@ -6,6 +6,7 @@
 package DAO;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import model.ModelCliente;
 import model.ModelGrupoSolicitacao;
 import model.ModelSolicitacaoGC;
@@ -16,6 +17,57 @@ import model.ModelSolicitacaoGC;
  */
 public class DaoGrupoSolicitacao extends conexoes.ConexaoMySql {
 
+    // Função para salvar um novo grupo de solicitações no banco.
+    public int salvarGrupoSolDAO(ModelGrupoSolicitacao modelGrupoSolicitacao) {
+        try {
+            this.conectar();
+            return this.insertSQL(
+                    "INSERT INTO grupo_solicitacao ("
+                    + "DESCGRUPOSOLICITACAO "
+                    + ") VALUES ("
+                    + "'" + modelGrupoSolicitacao.getDescricao() + "')"
+            );
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
+    // Função para excluir um grupo de solicitações do banco.
+    public boolean excluirGrupoSolDAO(int codigo) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(
+                    "DELETE FROM grupo_solicitacao WHERE CODGRUPOSOLICITACAO = '" + codigo + "';"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
+    // Função para alterar um grupo de solicitações no banco.
+    public boolean alterarGrupoSolDAO(ModelGrupoSolicitacao pModelGrupoSolicitacao) {
+        try {
+            this.conectar();
+            return this.executarUpdateDeleteSQL(
+                    "UPDATE grupo_solicitacao SET "
+                    + "DESCGRUPOSOLICITACAO = '" + pModelGrupoSolicitacao.getDescricao() + "' "
+                    + "WHERE CODGRUPOSOLICITACAO = '" + pModelGrupoSolicitacao.getCodGrupoSolicitacao()+ "';"
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.fecharConexao();
+        }
+    }
+
     public ArrayList<ModelGrupoSolicitacao> retornarListaGrupoSolicitacaoDAO() {
         ArrayList<ModelGrupoSolicitacao> listaModelGrupoSolicitacaos = new ArrayList<>();
         ModelGrupoSolicitacao modelGrupoSolicitacao = new ModelGrupoSolicitacao();
@@ -24,7 +76,7 @@ public class DaoGrupoSolicitacao extends conexoes.ConexaoMySql {
             this.executarSQL("SELECT "
                     + "CODGRUPOSOLICITACAO, "
                     + "DESCGRUPOSOLICITACAO "
-                    + "FROM grupo_solicitacao ORDER BY DESCGRUPOSOLICITACAO");
+                    + "FROM grupo_solicitacao ORDER BY CODGRUPOSOLICITACAO");
             while (this.getResultSet().next()) {
                 modelGrupoSolicitacao = new ModelGrupoSolicitacao();
                 modelGrupoSolicitacao.setCodGrupoSolicitacao(this.getResultSet().getInt(1));

@@ -143,7 +143,7 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
     }
 
     // Preenche o combobox de Prioridades
-    private void listarGruposSolicitacao(String tipo) {
+    public void listarGruposSolicitacao(String tipo) {
         if (tipo.equals("Listar")) {
             listaModelGrupoSolicitacoes = controllerGrupoSolicitacao.getListaGrupoSolicitacaoController();
             jcboGrupoSol.removeAllItems();
@@ -267,7 +267,6 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
         jtxtEnergisa = new javax.swing.JTextField();
         jLabel21 = new javax.swing.JLabel();
         jcboSituacao = new javax.swing.JComboBox<>();
-        jbCadGrupo = new javax.swing.JButton();
         jbCadSolicitacao = new javax.swing.JButton();
         jbCadCliente = new javax.swing.JButton();
         jbCadUsuario = new javax.swing.JButton();
@@ -275,6 +274,7 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jtxtDataLimite = new javax.swing.JTextField();
         jtxtPrioridade = new javax.swing.JTextField();
+        jbCadGrupo = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -675,8 +675,6 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
             }
         });
 
-        jbCadGrupo.setText("...");
-
         jbCadSolicitacao.setText("...");
         jbCadSolicitacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -707,6 +705,13 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
         jtxtPrioridade.setEditable(false);
         jtxtPrioridade.setBackground(new java.awt.Color(204, 255, 204));
 
+        jbCadGrupo.setText("...");
+        jbCadGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCadGrupoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -735,7 +740,7 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
                                 .addComponent(jLabel21)
                                 .addGap(125, 125, 125)
                                 .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 484, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -755,8 +760,7 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jtxtDataLimite, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                                        .addGap(276, 276, 276)))))
-                        .addComponent(jbCadGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(310, 310, 310))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jpDemandaAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -817,7 +821,9 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jtxtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jcboGrupoSol, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jcboGrupoSol, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jbCadGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addComponent(jLabel12)
                                     .addGap(0, 0, Short.MAX_VALUE))))
@@ -842,7 +848,6 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
                     .addComponent(jcboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtEnergisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtCDC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCadGrupo)
                     .addComponent(jbCadCliente)
                     .addComponent(jcboSolicitacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jbCadSolicitacao)
@@ -864,7 +869,8 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
                         .addComponent(jcboSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jbCadUsuario)
                         .addComponent(jcboGrupoSol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jtxtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jtxtPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jbCadGrupo))
                     .addComponent(jtxtDataEncaminhamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtDataResposta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -896,7 +902,7 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
                         .addComponent(jbAlterar)
                         .addComponent(jbExcluir))
                     .addComponent(jbSalvar))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1235,6 +1241,11 @@ public class ViewSolicitacaoGC extends javax.swing.JFrame {
             codigoGrupoSolicitacao = modelGrupoSolicitacao.getCodGrupoSolicitacao();
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jcboGrupoSolPopupMenuWillBecomeInvisible
+
+    private void jbCadGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCadGrupoActionPerformed
+        // TODO add your handling code here:
+        new ViewGrupoSolicitacao(this).setVisible(true);
+    }//GEN-LAST:event_jbCadGrupoActionPerformed
 
     /**
      * @param args the command line arguments

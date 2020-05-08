@@ -107,7 +107,7 @@
                                   <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="484" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -132,12 +132,11 @@
                                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" attributes="0">
                                           <Component id="jtxtDataLimite" pref="145" max="32767" attributes="0"/>
-                                          <EmptySpace min="-2" pref="276" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="310" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="jbCadGrupo" min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
@@ -210,7 +209,9 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jtxtPrioridade" min="-2" pref="167" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jcboGrupoSol" min="-2" pref="181" max="-2" attributes="0"/>
+                                      <Component id="jcboGrupoSol" min="-2" pref="141" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jbCadGrupo" min="-2" pref="34" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
@@ -246,7 +247,6 @@
                       <Component id="jcboCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtxtEnergisa" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jtxtCDC" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jbCadGrupo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbCadCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jcboSolicitacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jbCadSolicitacao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -271,6 +271,7 @@
                           <Component id="jbCadUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jcboGrupoSol" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jtxtPrioridade" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jbCadGrupo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jtxtDataEncaminhamento" min="-2" max="-2" attributes="0"/>
                       <Component id="jtxtDataResposta" min="-2" max="-2" attributes="0"/>
@@ -311,7 +312,7 @@
                       </Group>
                       <Component id="jbSalvar" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="35" max="32767" attributes="0"/>
+                  <EmptySpace pref="62" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -893,11 +894,6 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="jbCadGrupo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="..."/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="jbCadSolicitacao">
           <Properties>
             <Property name="text" type="java.lang.String" value="..."/>
@@ -947,6 +943,14 @@
               <Color blue="cc" green="ff" red="cc" type="rgb"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="jbCadGrupo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="..."/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCadGrupoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

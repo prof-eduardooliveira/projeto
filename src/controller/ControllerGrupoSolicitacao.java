@@ -30,4 +30,16 @@ public class ControllerGrupoSolicitacao {
         return this.daoGrupoSolicitacao.retornarGrupoSolicitacaoDAO(pNome);
     }
 
+    public int salvarGrupoSolController(ModelGrupoSolicitacao pmodelGrupoSolicitacao) {
+        return this.daoGrupoSolicitacao.salvarGrupoSolDAO(pmodelGrupoSolicitacao);
+    }
+
+    public boolean atualizarGrupoSolController(ModelGrupoSolicitacao pmodelGrupoSolicitacao) {
+        return this.daoGrupoSolicitacao.alterarGrupoSolDAO(pmodelGrupoSolicitacao);
+    }
+
+    public boolean excluirGrupoSolController(int pCodigo) {
+        return this.daoGrupoSolicitacao.excluirGrupoSolDAO(pCodigo);
+    }
+
 }
