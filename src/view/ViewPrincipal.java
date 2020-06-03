@@ -85,6 +85,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jMenuGerencial = new javax.swing.JMenu();
         jmICadastroServicos2 = new javax.swing.JMenuItem();
         jmICadastroServicos4 = new javax.swing.JMenuItem();
+        jmICadLigProv = new javax.swing.JMenuItem();
         jMenuRelatorios = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenuSobre = new javax.swing.JMenu();
@@ -429,6 +430,15 @@ public class ViewPrincipal extends javax.swing.JFrame {
         });
         jMenuGerencial.add(jmICadastroServicos4);
 
+        jmICadLigProv.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 16 x 16/tab_edit.png"))); // NOI18N
+        jmICadLigProv.setText("Cadastro de Ligações Provisórias");
+        jmICadLigProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmICadLigProvActionPerformed(evt);
+            }
+        });
+        jMenuGerencial.add(jmICadLigProv);
+
         jMenuBar1.add(jMenuGerencial);
 
         jMenuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icones-diversos/Gnome Icones/Icones XP/BlueSphere/32x32/apps/kchart.png"))); // NOI18N
@@ -596,6 +606,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formFocusGained
 
+    private void jmICadLigProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmICadLigProvActionPerformed
+        // TODO add your handling code here:
+        new ViewLigacoesProvisorias().setVisible(true);
+    }//GEN-LAST:event_jmICadLigProvActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -700,6 +715,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jlblDiaSemana;
     public javax.swing.JLabel jlblNumeroSol;
     public javax.swing.JLabel jlblUsuario;
+    private javax.swing.JMenuItem jmICadLigProv;
     private javax.swing.JMenuItem jmICadastroCliente;
     private javax.swing.JMenuItem jmICadastroCliente2;
     private javax.swing.JMenuItem jmICadastroPerfil;
