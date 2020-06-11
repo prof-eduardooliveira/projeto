@@ -9,12 +9,16 @@ import controller.ControllerAgrupamento;
 import controller.ControllerCidade;
 import controller.ControllerEntrada;
 import controller.ControllerLigacao;
+import controller.ControllerLigacoesProvisorias;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.ModelAgrupamento;
 import model.ModelCidade;
 import model.ModelEntrada;
 import model.ModelLigacao;
+import model.ModelLigacoesProvisorias;
 
 /**
  *
@@ -22,59 +26,106 @@ import model.ModelLigacao;
  */
 public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
+    ControllerLigacoesProvisorias clp;
+    
     /**
      * Creates new form ViewLigacoesProvisorias
      */
     public ViewLigacoesProvisorias() {
         initComponents();
         
+        clp = new ControllerLigacoesProvisorias();
+        
         //Maximiza a JFrame
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
-        preencherComboEntrada();
-        preencherComboAgrupamento();
-        preencherComboLocalidade();
-        preencherComboLigacaoTrafo();
+        habilitarCamposFormulario(false);
     }
     
     // Preenche o ComboBox com uma lista de tipo de entradas.
     private void preencherComboEntrada(){
-        ArrayList<ModelEntrada> listEntradas = new ControllerEntrada().retornarListaEntradaController();
-        jCBEntrada.removeAllItems();
-        jCBEntrada.addItem("ESCOLHA");
-        listEntradas.forEach((e) -> {
-            jCBEntrada.addItem(e);
-        });
+        new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ModelEntrada> listEntradas = new ControllerEntrada().retornarListaEntradaController();
+                jCBEntrada.removeAllItems();
+                jCBEntrada.addItem("ESCOLHA");
+                listEntradas.forEach((e) -> {
+                    jCBEntrada.addItem(e);
+                });
+            }
+            
+        }.start();
     }
     
     // Preenche o ComboBox com uma lista dos Agrupamentos de 'PM'.
     private void preencherComboAgrupamento(){
-        ArrayList<ModelAgrupamento> listAgrupamentos = new ControllerAgrupamento().retonarListaAgrupamentoController();
-        jCBAgrupamento.removeAllItems();
-        jCBAgrupamento.addItem("ESCOLHA");
-        listAgrupamentos.forEach((a) -> {
-            jCBAgrupamento.addItem(a);
-        });
+        new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ModelAgrupamento> listAgrupamentos = new ControllerAgrupamento().retonarListaAgrupamentoController();
+                jCBAgrupamento.removeAllItems();
+                jCBAgrupamento.addItem("ESCOLHA");
+                listAgrupamentos.forEach((a) -> {
+                    jCBAgrupamento.addItem(a);
+                });
+            }
+            
+        }.start();
     }
     
     // Preenche o ComboBox com uma lista das Localidades.
     private void preencherComboLocalidade(){
-        ArrayList<ModelCidade> listLocalidades = new ControllerCidade().retornarListaCidadeController();
-        jCBLocalidade.removeAllItems();
-        jCBLocalidade.addItem("ESCOLHA");
-        listLocalidades.forEach((l) -> {
-            jCBLocalidade.addItem(l);
-        });
+        new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ModelCidade> listLocalidades = new ControllerCidade().retornarListaCidadeController();
+                jCBLocalidade.removeAllItems();
+                jCBLocalidade.addItem("ESCOLHA");
+                listLocalidades.forEach((l) -> {
+                    jCBLocalidade.addItem(l);
+                });
+            }
+            
+        }.start();
     }
     
     // Preenche o ComboBox com uma lista dos tipos de Ligações.
     private void preencherComboLigacaoTrafo(){
-        ArrayList<ModelLigacao> listLigacoes = new ControllerLigacao().retornarListaLigacaoController();
-        jCBTipoLigacao.removeAllItems();
-        jCBTipoLigacao.addItem("ESCOLHA");
-        listLigacoes.forEach((l) -> {
-            jCBTipoLigacao.addItem(l);
-        });
+        new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ModelLigacao> listLigacoes = new ControllerLigacao().retornarListaLigacaoController();
+                jCBTipoLigacao.removeAllItems();
+                jCBTipoLigacao.addItem("ESCOLHA");
+                listLigacoes.forEach((l) -> {
+                    jCBTipoLigacao.addItem(l);
+                });
+            }
+            
+        }.start();
+    }
+    
+    // Função que habilita/desabilita os campos do formulário.
+    private void habilitarCamposFormulario(boolean habilitar) {
+        jCBAgrupamento.setEnabled(habilitar);
+        jCBEntrada.setEnabled(habilitar);
+        jCBLocalidade.setEnabled(habilitar);
+        jCBTipoLigacao.setEnabled(habilitar);
+        jCBTrafo.setEnabled(habilitar);
+        txtAmperagem.setEnabled(habilitar);
+        txtDataInicio.setEnabled(habilitar);
+        txtDataFim.setEnabled(habilitar);
+        txtDescEvento.setEnabled(habilitar);
+        txtEnderecoLigacao.setEnabled(habilitar);
+        txtReferencia.setEnabled(habilitar);
+        jbSalvar.setEnabled(habilitar);
+        if(habilitar){
+            preencherComboEntrada();
+            preencherComboAgrupamento();
+            preencherComboLocalidade();
+            preencherComboLigacaoTrafo();
+        }
     }
 
     /**
@@ -85,6 +136,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         txtDataSolicitacao = new javax.swing.JTextField();
@@ -100,8 +152,8 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jCBLocalidade = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        jtxtDataInicio = new com.toedter.calendar.JDateChooser();
-        jtxtDataFim = new com.toedter.calendar.JDateChooser();
+        txtDataInicio = new com.toedter.calendar.JDateChooser();
+        txtDataFim = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -112,15 +164,30 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         jCBTrafo = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         txtTrafoKva = new javax.swing.JFormattedTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtEnderecoLigacao = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtReferencia = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jbNovo = new javax.swing.JButton();
+        jbSalvar = new javax.swing.JButton();
+        jbAlterar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ligações Provisórias");
-        setResizable(false);
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        txtDataSolicitacao.setEnabled(false);
 
         jLabel1.setText("Data da Solicitação");
 
         jLabel2.setText("Forma de Entrada");
 
+        jCBEntrada.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARREGANDO..." }));
         jCBEntrada.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCBEntradaItemStateChanged(evt);
@@ -135,9 +202,11 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
         jLabel5.setText("Escolha o Agrupamento");
 
+        jCBAgrupamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARREGANDO..." }));
+
         jLabel6.setText("Escolha a Localidade");
 
-        jCBLocalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBLocalidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARREGANDO..." }));
 
         jLabel7.setText("Data Início");
 
@@ -147,7 +216,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
         jLabel9.setText("Tipo:");
 
-        jCBTipoLigacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jCBTipoLigacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARREGANDO..." }));
 
         jLabel10.setText("Amperagem");
 
@@ -176,12 +245,12 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCBTipoLigacao, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jCBTipoLigacao, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtAmperagem)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtAmperagem, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -214,13 +283,17 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        jLabel13.setText("Endereço da Ligação");
+
+        jLabel14.setText("Referência");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -234,10 +307,10 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                             .addComponent(jLabel4))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNumOficio))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtNumOficio, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -250,20 +323,28 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel7))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtEnderecoLigacao, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(250, 250, 250)
+                        .addComponent(jLabel14))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtDescEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtxtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jtxtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
@@ -285,30 +366,144 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDescEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jtxtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtEnderecoLigacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtReferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(jPanel1, gridBagConstraints);
+
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Entrada", "Num. Ofício", "Agrupamento", "Localidade", "Evento", "Data Início", "Data Fim", "Ligação", "Aperagem", "TRAFO (KVA)", "Endereço Ligação", "Referência"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
+            jTable1.getColumnModel().getColumn(8).setResizable(false);
+            jTable1.getColumnModel().getColumn(9).setResizable(false);
+            jTable1.getColumnModel().getColumn(10).setResizable(false);
+            jTable1.getColumnModel().getColumn(11).setResizable(false);
+            jTable1.getColumnModel().getColumn(12).setResizable(false);
+        }
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        jPanel3.add(jScrollPane1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 5);
+        getContentPane().add(jPanel3, gridBagConstraints);
+
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        jbNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 16 x 16/page.png"))); // NOI18N
+        jbNovo.setText("Novo");
+        jbNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNovoActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jbNovo);
+
+        jbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 16 x 16/disk.png"))); // NOI18N
+        jbSalvar.setText("Salvar");
+        jbSalvar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jbSalvarMouseClicked(evt);
+            }
+        });
+        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalvarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jbSalvar);
+
+        jbAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 16 x 16/application_edit.png"))); // NOI18N
+        jbAlterar.setText("Alterar");
+        jbAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAlterarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jbAlterar);
+
+        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 16 x 16/cross.png"))); // NOI18N
+        jbExcluir.setText("Excluir");
+        jbExcluir.setEnabled(false);
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jbExcluir);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(jPanel4, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCBTrafoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTrafoItemStateChanged
         // TODO add your handling code here:
-        System.out.println(jCBTrafo.getSelectedItem());
         if(jCBTrafo.getSelectedItem().equals("SIM"))
             txtTrafoKva.setEnabled(true);
         else
@@ -318,16 +513,144 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
     private void jCBEntradaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBEntradaItemStateChanged
         // TODO add your handling code here:
         ModelEntrada e;
-        if(!jCBEntrada.getSelectedItem().equals("ESCOLHA")){
-            e = (ModelEntrada) jCBEntrada.getSelectedItem();
-            if(e.getDescEntrada().equals("OFÍCIO"))
-                txtNumOficio.setEnabled(true);
-            else
+        if(jCBEntrada.getSelectedItem()!=null){
+            if(!jCBEntrada.getSelectedItem().equals("ESCOLHA")){
+                e = (ModelEntrada) jCBEntrada.getSelectedItem();
+                if(e.getDescEntrada().equals("OFÍCIO"))
+                    txtNumOficio.setEnabled(true);
+                else
+                    txtNumOficio.setEnabled(false);
+            }else{
                 txtNumOficio.setEnabled(false);
-        }else{
-            txtNumOficio.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_jCBEntradaItemStateChanged
+
+    private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
+        habilitarCamposFormulario(true);
+    }//GEN-LAST:event_jbNovoActionPerformed
+
+    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
+
+    }//GEN-LAST:event_jbSalvarActionPerformed
+
+    private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
+
+    }//GEN-LAST:event_jbAlterarActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+
+    }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jbSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalvarMouseClicked
+        // TODO add your handling code here:
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateSQLFormat = new SimpleDateFormat("yyyy-MM-dd");
+        
+        boolean erroPreenchimento = false;
+        String campos = "";
+        
+        if (jCBEntrada.getSelectedIndex() == 0){
+            erroPreenchimento = true;
+            campos += "\n Entrada;";
+        }
+        
+        if (txtNumOficio.isEnabled() && txtNumOficio.getText().equals("")){
+            erroPreenchimento = true;
+            campos += "\n Num Ofício;";
+        }
+        
+        if (jCBAgrupamento.getSelectedIndex() == 0){
+            erroPreenchimento = true;
+            campos += "\n Agrupamento;";
+        }
+        
+        if (jCBLocalidade.getSelectedIndex() == 0){
+            erroPreenchimento = true;
+            campos += "\n Localidade;";
+        }
+        
+        if (txtDescEvento.getText().equals("")){
+            erroPreenchimento = true;
+            campos += "\n Evento;";
+        }
+        
+        if (txtDataInicio.getDate() == null){
+            erroPreenchimento = true;
+            campos += "\n Data de Início;";
+        }
+        
+        if (txtDataFim.getDate() == null){
+            erroPreenchimento = true;
+            campos += "\n Data de Fim;";
+        }
+        
+        if (txtEnderecoLigacao.getText().equals("")){
+            erroPreenchimento = true;
+            campos += "\n Endereço de Ligação;";
+        }
+        
+        if (txtReferencia.getText().equals("")){
+            erroPreenchimento = true;
+            campos += "\n Referência;";
+        }
+        
+        if (jCBTipoLigacao.getSelectedIndex() == 0){
+            erroPreenchimento = true;
+            campos += "\n Ligação do Disjuntor;";
+        }
+        
+        if (txtAmperagem.getText().equals("")){
+            erroPreenchimento = true;
+            campos += "\n Amperagem;";
+        }
+        
+        if (jCBTrafo.getSelectedIndex() == 0){
+            erroPreenchimento = true;
+            campos += "\n Se precisa de trafo;";
+        }
+        
+        if (jCBTrafo.getSelectedItem().equals("SIM") && txtTrafoKva.getText().equals("")){
+            erroPreenchimento = true;
+            campos += "\n KVA do trafo;";
+        }
+        
+        if (!erroPreenchimento){
+            ModelLigacoesProvisorias mlp = new ModelLigacoesProvisorias();
+
+            mlp.setCodEntrada(((ModelEntrada)jCBEntrada.getSelectedItem()).getCodEntrada());
+            mlp.setNumOficio(txtNumOficio.getText());
+            mlp.setCodAgrupamento(((ModelAgrupamento)jCBAgrupamento.getSelectedItem()).getCodAgrupamento());
+            mlp.setCodCidade(((ModelCidade) jCBLocalidade.getSelectedItem()).getCodCidade());
+            mlp.setEvento(txtDescEvento.getText());
+            String dataIni = dateSQLFormat.format(txtDataInicio.getDate());
+            mlp.setDataInicio(dataIni);
+            String dataFim = dateSQLFormat.format(txtDataFim.getDate());
+            mlp.setDataFim(dataFim);
+            mlp.setEnderecoLigacao(txtEnderecoLigacao.getText());
+            mlp.setReferencia(txtReferencia.getText());
+            mlp.setTipoLigacao(((ModelLigacao) jCBTipoLigacao.getSelectedItem()).getCodLigacao());
+            mlp.setAmperagem(Integer.valueOf(txtAmperagem.getText()));
+            if(jCBTrafo.getSelectedItem().equals("SIM"))
+                mlp.setTrafoKva(txtTrafoKva.getText());
+            else if(jCBTrafo.getSelectedItem().equals("NÃO"))
+                mlp.setTrafoKva("NÃO");
+            
+            if(clp.salvarLigacaoProvisoriaController(mlp) > 0){
+                JOptionPane.showMessageDialog(this, "Ligação cadastrada com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                //this.habilitarDesabilitarCampos(false);
+                //this.limparCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar a ligação!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(this,
+                    "Favor, preencher corretamente o(s) campo(s) abaixo:" + campos,
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbSalvarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -340,6 +663,8 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -350,12 +675,22 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private com.toedter.calendar.JDateChooser jtxtDataFim;
-    private com.toedter.calendar.JDateChooser jtxtDataInicio;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JButton jbAlterar;
+    private javax.swing.JButton jbExcluir;
+    private javax.swing.JButton jbNovo;
+    private javax.swing.JButton jbSalvar;
     private javax.swing.JFormattedTextField txtAmperagem;
+    private com.toedter.calendar.JDateChooser txtDataFim;
+    private com.toedter.calendar.JDateChooser txtDataInicio;
     private javax.swing.JTextField txtDataSolicitacao;
     private javax.swing.JTextField txtDescEvento;
+    private javax.swing.JTextField txtEnderecoLigacao;
     private javax.swing.JTextField txtNumOficio;
+    private javax.swing.JTextField txtReferencia;
     private javax.swing.JFormattedTextField txtTrafoKva;
     // End of variables declaration//GEN-END:variables
 }
