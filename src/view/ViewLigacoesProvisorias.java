@@ -505,11 +505,6 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                 jbSalvarMouseClicked(evt);
             }
         });
-        jbSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbSalvarActionPerformed(evt);
-            }
-        });
         jPanel4.add(jbSalvar);
 
         jbAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/icons 16 x 16/application_edit.png"))); // NOI18N
@@ -543,7 +538,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
     private void jCBTrafoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTrafoItemStateChanged
         // TODO add your handling code here:
-        if(jCBTrafo.getSelectedItem()!=null){
+        if(jCBTrafo.getSelectedItem()!=null && jCBTrafo.isEnabled()){
             if(jCBTrafo.getSelectedItem().equals("SIM"))
                 txtTrafoKva.setEnabled(true);
             else
@@ -572,19 +567,17 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         novoOuAlterar = "ADIÇÃO";
     }//GEN-LAST:event_jbNovoActionPerformed
 
-    private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
-
-    }//GEN-LAST:event_jbSalvarActionPerformed
-
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         habilitarCamposFormulario(true);
         novoOuAlterar = "ALTERAÇÃO";
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(this,
+        Object[] opcoes = { "SIM", "NÃO" };
+        
+        int resposta = JOptionPane.showOptionDialog(this,
                 "Você deseja remover a Ligação Provisória Nº" + codLigacaoProvisoria,
-                "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                "Atenção", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[1]);
         
         if(resposta == 0){
             if(clp.removerLigacaoProvisoriaController(codLigacaoProvisoria)){
