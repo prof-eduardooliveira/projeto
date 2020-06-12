@@ -19,4 +19,8 @@ public class ControllerLigacao {
     public ArrayList<ModelLigacao> retornarListaLigacaoController(){
         return this.daoLigacao.retornarListaLigacaoDAO();
     }
+    
+    public ModelLigacao retornarLigacaoPorCodController(int codLigacao){
+        return this.daoLigacao.retornarLigacaoPorCodDAO(codLigacao);
+    }
 }

@@ -19,4 +19,8 @@ public class ControllerAgrupamento {
     public ArrayList<ModelAgrupamento> retonarListaAgrupamentoController(){
         return this.daoAgrupamento.retornarListaAgrupamentoDAO();
     }
+    
+    public ModelAgrupamento retornarAgrupamentoPorCodController(int codAgrupamento){
+        return this.daoAgrupamento.retornarAgrupamentoPorCodDAO(codAgrupamento);
+    }
 }

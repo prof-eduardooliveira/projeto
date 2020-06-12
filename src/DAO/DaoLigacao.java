@@ -28,8 +28,8 @@ public class DaoLigacao extends conexoes.ConexaoMySql{
             while (this.getResultSet().next()){
                 ModelLigacao l = new ModelLigacao();
                 
-                l.setCodLigacao(this.getResultSet().getInt(1));
-                l.setDescligacao(this.getResultSet().getString(2));
+                l.setCodLigacao(this.getResultSet().getInt("CODLIGACAO"));
+                l.setDescligacao(this.getResultSet().getString("DESCLIGACAO"));
                 
                 listLigacoes.add(l);
             }
@@ -39,5 +39,27 @@ public class DaoLigacao extends conexoes.ConexaoMySql{
             this.fecharConexao();
         }
         return listLigacoes;
+    }
+
+    public ModelLigacao retornarLigacaoPorCodDAO(int codLigacao) {
+        ModelLigacao ligacao = new ModelLigacao();
+        String sql = "SELECT * FROM LIGACAO WHERE CODLIGACAO = " + codLigacao;
+        
+        try {
+            this.conectar();
+            this.executarSQL(sql);
+            
+            while (this.getResultSet().next()){
+                
+                ligacao.setCodLigacao(this.getResultSet().getInt("CODLIGACAO"));
+                ligacao.setDescligacao(this.getResultSet().getString("DESCLIGACAO"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoLigacao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.fecharConexao();
+        }
+        
+        return ligacao;
     }
 }

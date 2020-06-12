@@ -43,4 +43,28 @@ public class DaoCidade extends conexoes.ConexaoMySql{
         
         return listCidades;
     }
+
+    public ModelCidade retornarCidadePorCodDAO(int codCidade) {
+        ModelCidade cidade = new ModelCidade();
+        
+        String sql = "SELECT * FROM CIDADE WHERE CODCIDADE = " + codCidade;
+        
+        try{
+            this.conectar();
+            this.executarSQL(sql);
+            
+            while (this.getResultSet().next()){
+                
+                cidade.setCodCidade(this.getResultSet().getInt("CODCIDADE"));
+                cidade.setDescCidade(this.getResultSet().getString("DSCCIDADE"));
+                cidade.setCodEstado(this.getResultSet().getInt("CODESTADO"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoCidade.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.fecharConexao();
+        }
+        
+        return cidade;
+    }
 }

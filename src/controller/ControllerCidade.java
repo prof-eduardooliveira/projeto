@@ -19,4 +19,8 @@ public class ControllerCidade {
     public ArrayList<ModelCidade> retornarListaCidadeController(){
         return this.daoCidade.retornarListaCidadeDAO();
     }
+    
+    public ModelCidade retornarCidadePorCodController(int codCidade){
+        return this.daoCidade.retornarCidadePorCodDAO(codCidade);
+    }
 }

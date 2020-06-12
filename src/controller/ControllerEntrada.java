@@ -19,4 +19,8 @@ public class ControllerEntrada {
     public ArrayList<ModelEntrada> retornarListaEntradaController(){
        return this.daoEntrada.retornarListaEntradaDAO();
     }
+    
+    public ModelEntrada retornarEntradaPorCodController(int codEntrada){
+        return this.daoEntrada.retornarEntradaPorCodDAO(codEntrada);
+    }
 }

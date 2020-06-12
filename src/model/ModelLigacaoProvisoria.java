@@ -5,12 +5,15 @@
  */
 package model;
 
+import java.util.Date;
+
 /**
  *
  * @author Nielson Soares
  */
-public class ModelLigacoesProvisorias {
+public class ModelLigacaoProvisoria {
     private int codSolicitacao;
+    private String dataSolicitacao;
     private int codAgrupamento;
     private int codEntrada;
     private String numOficio;
@@ -30,6 +33,14 @@ public class ModelLigacoesProvisorias {
 
     public void setCodSolicitacao(int codSolicitacao) {
         this.codSolicitacao = codSolicitacao;
+    }
+
+    public String getDataSolicitacao() {
+        return dataSolicitacao;
+    }
+
+    public void setDataSolicitacao(String dataSolicitacao) {
+        this.dataSolicitacao = dataSolicitacao;
     }
 
     public int getCodAgrupamento() {

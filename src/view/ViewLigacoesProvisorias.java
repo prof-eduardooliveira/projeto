@@ -10,15 +10,19 @@ import controller.ControllerCidade;
 import controller.ControllerEntrada;
 import controller.ControllerLigacao;
 import controller.ControllerLigacoesProvisorias;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.ModelAgrupamento;
 import model.ModelCidade;
 import model.ModelEntrada;
 import model.ModelLigacao;
-import model.ModelLigacoesProvisorias;
+import model.ModelLigacaoProvisoria;
 
 /**
  *
@@ -26,7 +30,11 @@ import model.ModelLigacoesProvisorias;
  */
 public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
-    ControllerLigacoesProvisorias clp;
+    private ControllerLigacoesProvisorias clp;
+    private DefaultTableModel model = new DefaultTableModel();
+    private int codLigacaoProvisoria;
+    private String novoOuAlterar;
+    
     
     /**
      * Creates new form ViewLigacoesProvisorias
@@ -35,11 +43,28 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         initComponents();
         
         clp = new ControllerLigacoesProvisorias();
+        model = (DefaultTableModel) tblLigProvisoria.getModel();
         
         //Maximiza a JFrame
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         
+        //Desabilita os campos do formulário.
         habilitarCamposFormulario(false);
+        
+        //Carregar
+        carregarComboBoxes();
+        
+        //Carrega a tabela com os dados.
+        carregarTabela();
+    }
+    
+    // Função para carregar todos o ComboBoxes
+    private void carregarComboBoxes(){
+        preencherComboEntrada();
+        preencherComboAgrupamento();
+        preencherComboLocalidade();
+        preencherComboLigacaoTrafo();
+        preencherComboPrecisaTrafo();
     }
     
     // Preenche o ComboBox com uma lista de tipo de entradas.
@@ -106,6 +131,20 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         }.start();
     }
     
+    // Preenche o ComboBox com opçoes para o Trafo.
+    private void preencherComboPrecisaTrafo(){
+        new Thread(){
+            @Override
+            public void run() {
+                jCBTrafo.removeAllItems();
+                jCBTrafo.addItem("ESCOLHA");
+                jCBTrafo.addItem("SIM");
+                jCBTrafo.addItem("NÃO");
+            }
+            
+        }.start();
+    }
+    
     // Função que habilita/desabilita os campos do formulário.
     private void habilitarCamposFormulario(boolean habilitar) {
         jCBAgrupamento.setEnabled(habilitar);
@@ -116,16 +155,10 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         txtAmperagem.setEnabled(habilitar);
         txtDataInicio.setEnabled(habilitar);
         txtDataFim.setEnabled(habilitar);
-        txtDescEvento.setEnabled(habilitar);
+        txtEvento.setEnabled(habilitar);
         txtEnderecoLigacao.setEnabled(habilitar);
         txtReferencia.setEnabled(habilitar);
         jbSalvar.setEnabled(habilitar);
-        if(habilitar){
-            preencherComboEntrada();
-            preencherComboAgrupamento();
-            preencherComboLocalidade();
-            preencherComboLigacaoTrafo();
-        }
     }
 
     /**
@@ -146,7 +179,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtNumOficio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDescEvento = new javax.swing.JTextField();
+        txtEvento = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jCBAgrupamento = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -170,7 +203,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         txtReferencia = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblLigProvisoria = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jbNovo = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
@@ -224,7 +257,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
         jLabel11.setText("Para esa ligação será necessário instalação de Transformador?");
 
-        jCBTrafo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ESCOLHA", "SIM", "NÃO" }));
+        jCBTrafo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARREGANDO..." }));
         jCBTrafo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 jCBTrafoItemStateChanged(evt);
@@ -331,7 +364,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                         .addGap(250, 250, 250)
                         .addComponent(jLabel14))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtDescEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -365,7 +398,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDescEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEvento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -391,19 +424,19 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblLigProvisoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Código", "Entrada", "Num. Ofício", "Agrupamento", "Localidade", "Evento", "Data Início", "Data Fim", "Ligação", "Aperagem", "TRAFO (KVA)", "Endereço Ligação", "Referência"
+                "Código", "Data Solicitação", "Entrada", "Num. Ofício", "Agrupamento", "Localidade", "Evento", "Data Início", "Data Fim", "Ligação", "Aperagem", "Trafo (KVA)", "Endereço Ligação", "Referência"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, true, true, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -414,21 +447,27 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-            jTable1.getColumnModel().getColumn(12).setResizable(false);
+        tblLigProvisoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLigProvisoriaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblLigProvisoria);
+        if (tblLigProvisoria.getColumnModel().getColumnCount() > 0) {
+            tblLigProvisoria.getColumnModel().getColumn(0).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(1).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(2).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(3).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(4).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(5).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(6).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(7).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(8).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(9).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(10).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(11).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(12).setResizable(false);
+            tblLigProvisoria.getColumnModel().getColumn(13).setResizable(false);
         }
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -504,16 +543,18 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
     private void jCBTrafoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTrafoItemStateChanged
         // TODO add your handling code here:
-        if(jCBTrafo.getSelectedItem().equals("SIM"))
-            txtTrafoKva.setEnabled(true);
-        else
-            txtTrafoKva.setEnabled(false);
+        if(jCBTrafo.getSelectedItem()!=null){
+            if(jCBTrafo.getSelectedItem().equals("SIM"))
+                txtTrafoKva.setEnabled(true);
+            else
+                txtTrafoKva.setEnabled(false);
+        }
     }//GEN-LAST:event_jCBTrafoItemStateChanged
 
     private void jCBEntradaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBEntradaItemStateChanged
         // TODO add your handling code here:
         ModelEntrada e;
-        if(jCBEntrada.getSelectedItem()!=null){
+        if(jCBEntrada.getSelectedItem()!=null && jCBEntrada.isEnabled()){
             if(!jCBEntrada.getSelectedItem().equals("ESCOLHA")){
                 e = (ModelEntrada) jCBEntrada.getSelectedItem();
                 if(e.getDescEntrada().equals("OFÍCIO"))
@@ -528,6 +569,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
 
     private void jbNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNovoActionPerformed
         habilitarCamposFormulario(true);
+        novoOuAlterar = "ADIÇÃO";
     }//GEN-LAST:event_jbNovoActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
@@ -535,16 +577,30 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
-
+        habilitarCamposFormulario(true);
+        novoOuAlterar = "ALTERAÇÃO";
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
-
+        int resposta = JOptionPane.showConfirmDialog(this,
+                "Você deseja remover a Ligação Provisória Nº" + codLigacaoProvisoria,
+                "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        
+        if(resposta == 0){
+            if(clp.removerLigacaoProvisoriaController(codLigacaoProvisoria)){
+                    JOptionPane.showMessageDialog(this, "Ligação removida com sucesso!", "Exclusão", JOptionPane.INFORMATION_MESSAGE);
+                    habilitarCamposFormulario(false);
+                    carregarComboBoxes();
+                    limparCamposFormulario();
+                    carregarTabela();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao remover a Ligação!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
+        }
     }//GEN-LAST:event_jbExcluirActionPerformed
 
     private void jbSalvarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbSalvarMouseClicked
         // TODO add your handling code here:
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateSQLFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         boolean erroPreenchimento = false;
@@ -570,7 +626,7 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
             campos += "\n Localidade;";
         }
         
-        if (txtDescEvento.getText().equals("")){
+        if (txtEvento.getText().equals("")){
             erroPreenchimento = true;
             campos += "\n Evento;";
         }
@@ -616,13 +672,13 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         }
         
         if (!erroPreenchimento){
-            ModelLigacoesProvisorias mlp = new ModelLigacoesProvisorias();
+            ModelLigacaoProvisoria mlp = new ModelLigacaoProvisoria();
 
             mlp.setCodEntrada(((ModelEntrada)jCBEntrada.getSelectedItem()).getCodEntrada());
             mlp.setNumOficio(txtNumOficio.getText());
             mlp.setCodAgrupamento(((ModelAgrupamento)jCBAgrupamento.getSelectedItem()).getCodAgrupamento());
             mlp.setCodCidade(((ModelCidade) jCBLocalidade.getSelectedItem()).getCodCidade());
-            mlp.setEvento(txtDescEvento.getText());
+            mlp.setEvento(txtEvento.getText());
             String dataIni = dateSQLFormat.format(txtDataInicio.getDate());
             mlp.setDataInicio(dataIni);
             String dataFim = dateSQLFormat.format(txtDataFim.getDate());
@@ -635,13 +691,27 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
                 mlp.setTrafoKva(txtTrafoKva.getText());
             else if(jCBTrafo.getSelectedItem().equals("NÃO"))
                 mlp.setTrafoKva("NÃO");
-            
-            if(clp.salvarLigacaoProvisoriaController(mlp) > 0){
-                JOptionPane.showMessageDialog(this, "Ligação cadastrada com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
-                //this.habilitarDesabilitarCampos(false);
-                //this.limparCampos();
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao cadastrar a ligação!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            if(novoOuAlterar.equals("ADIÇÃO")){
+                if(clp.salvarLigacaoProvisoriaController(mlp) > 0) {
+                    JOptionPane.showMessageDialog(this, "Ligação cadastrada com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                    habilitarCamposFormulario(false);
+                    carregarComboBoxes();
+                    limparCamposFormulario();
+                    carregarTabela();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao cadastrar a ligação!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
+            }else if (novoOuAlterar.equals("ALTERAÇÃO")){
+                mlp.setCodSolicitacao(codLigacaoProvisoria);
+                if(clp.alterarLigacaoProvisoriaController(mlp)){
+                    JOptionPane.showMessageDialog(this, "Ligação alterada com sucesso!", "Cadastro", JOptionPane.INFORMATION_MESSAGE);
+                    habilitarCamposFormulario(false);
+                    carregarComboBoxes();
+                    limparCamposFormulario();
+                    carregarTabela();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao alterar a ligação!", "ERRO", JOptionPane.ERROR_MESSAGE);
+                }
             }
             
         }else{
@@ -652,7 +722,80 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbSalvarMouseClicked
 
+    private void tblLigProvisoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLigProvisoriaMouseClicked
+        // TODO add your handling code here:
+        jbExcluir.setEnabled(true);
+        codLigacaoProvisoria = Integer.valueOf(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 0)));
+        txtDataSolicitacao.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 1)));
+        jCBEntrada.getModel().setSelectedItem(model.getValueAt(tblLigProvisoria.getSelectedRow(), 2));
+        txtNumOficio.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 3)));
+        jCBAgrupamento.getModel().setSelectedItem(model.getValueAt(tblLigProvisoria.getSelectedRow(), 4));
+        jCBLocalidade.getModel().setSelectedItem(model.getValueAt(tblLigProvisoria.getSelectedRow(), 5));
+        txtEvento.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 6)));
+        try {
+            txtDataInicio.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 7))));
+            txtDataFim.setDate(new SimpleDateFormat("dd/MM/yyyy").parse(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 8))));
+        } catch (ParseException ex) {
+            Logger.getLogger(ViewLigacoesProvisorias.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jCBTipoLigacao.getModel().setSelectedItem(model.getValueAt(tblLigProvisoria.getSelectedRow(), 9));
+        txtAmperagem.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 10)));
+        boolean precisaTrafo = !(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 11))).equals("NÃO");
+        if(precisaTrafo){
+            txtTrafoKva.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 11)));
+            jCBTrafo.getModel().setSelectedItem("SIM");
+        }else{
+            jCBTrafo.getModel().setSelectedItem("NÃO");
+        }
+        txtEnderecoLigacao.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 12)));
+        txtReferencia.setText(String.valueOf(model.getValueAt(tblLigProvisoria.getSelectedRow(), 13)));
+    }//GEN-LAST:event_tblLigProvisoriaMouseClicked
 
+    // Função para limpar os campos do formulário.
+    private void limparCamposFormulario(){
+        txtDataSolicitacao.setText("");
+        txtNumOficio.setText("");
+        txtEvento.setText("");
+        txtEnderecoLigacao.setText("");
+        txtReferencia.setText("");
+        txtAmperagem.setText("");
+        txtTrafoKva.setText("");
+        txtDataInicio.setCalendar(null);
+        txtDataFim.setCalendar(null);
+    }
+    
+    // Função para carregar os dados na tabela.
+    private void carregarTabela() {
+        new Thread(){
+            @Override
+            public void run() {
+                ArrayList<ModelLigacaoProvisoria> lista = clp.listarLigacoesProvisoriasController();
+              
+                model.setNumRows(0);
+
+                //insere as ligacoes na tabela
+                lista.forEach((lp) -> {
+                    model.addRow(new Object[]{
+                        lp.getCodSolicitacao(),
+                        lp.getDataSolicitacao(),
+                        new ControllerEntrada().retornarEntradaPorCodController(lp.getCodEntrada()),
+                        lp.getNumOficio(),
+                        new ControllerAgrupamento().retornarAgrupamentoPorCodController(lp.getCodAgrupamento()),
+                        new ControllerCidade().retornarCidadePorCodController(lp.getCodCidade()),
+                        lp.getEvento(),
+                        lp.getDataInicio(),
+                        lp.getDataFim(),
+                        new ControllerLigacao().retornarLigacaoPorCodController(lp.getTipoLigacao()),
+                        lp.getAmperagem(),
+                        lp.getTrafoKva(),
+                        lp.getEnderecoLigacao(),
+                        lp.getReferencia()
+                    });
+                });
+            }
+        }.start();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<Object> jCBAgrupamento;
     private javax.swing.JComboBox<Object> jCBEntrada;
@@ -678,17 +821,17 @@ public class ViewLigacoesProvisorias extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbNovo;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JTable tblLigProvisoria;
     private javax.swing.JFormattedTextField txtAmperagem;
     private com.toedter.calendar.JDateChooser txtDataFim;
     private com.toedter.calendar.JDateChooser txtDataInicio;
     private javax.swing.JTextField txtDataSolicitacao;
-    private javax.swing.JTextField txtDescEvento;
     private javax.swing.JTextField txtEnderecoLigacao;
+    private javax.swing.JTextField txtEvento;
     private javax.swing.JTextField txtNumOficio;
     private javax.swing.JTextField txtReferencia;
     private javax.swing.JFormattedTextField txtTrafoKva;

@@ -5,17 +5,31 @@
  */
 package controller;
 
-import DAO.DaoLigacoesProvisorias;
-import model.ModelLigacoesProvisorias;
+import DAO.DaoLigacaoProvisoria;
+import java.util.ArrayList;
+import model.ModelLigacaoProvisoria;
+
 
 /**
  *
  * @author Nielson Soares
  */
 public class ControllerLigacoesProvisorias {
-    private DaoLigacoesProvisorias dlp = new DaoLigacoesProvisorias();
+    private DaoLigacaoProvisoria dlp = new DaoLigacaoProvisoria();
     
-    public int salvarLigacaoProvisoriaController(ModelLigacoesProvisorias mlp){
+    public int salvarLigacaoProvisoriaController(ModelLigacaoProvisoria mlp){
         return this.dlp.salvarLigacaoProvisoriaDAO(mlp);
+    }
+    
+    public ArrayList listarLigacoesProvisoriasController(){
+        return this.dlp.retornarListaLigacoesProvisoriasDAO();
+    }
+    
+    public boolean alterarLigacaoProvisoriaController(ModelLigacaoProvisoria mlp){
+        return this.dlp.alterarLigacaoProvisoriaDAO(mlp);
+    }
+    
+    public boolean removerLigacaoProvisoriaController(int codSolicitacao){
+        return this.dlp.removerLigacaoProvisoriaDAO(codSolicitacao);
     }
 }

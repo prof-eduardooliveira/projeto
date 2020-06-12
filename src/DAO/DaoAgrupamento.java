@@ -27,8 +27,8 @@ public class DaoAgrupamento extends conexoes.ConexaoMySql{
             this.executarSQL(sql);
             while (this.getResultSet().next()){
                 ModelAgrupamento agrupamento = new ModelAgrupamento();
-                agrupamento.setCodAgrupamento(this.getResultSet().getInt(1));
-                agrupamento.setDescAgrupamento(this.getResultSet().getString(2));
+                agrupamento.setCodAgrupamento(this.getResultSet().getInt("CODAGRUPAMENTO"));
+                agrupamento.setDescAgrupamento(this.getResultSet().getString("DSCAGRUPAMENTO"));
                 
                 listaAgrupamentos.add(agrupamento);
             }
@@ -39,5 +39,25 @@ public class DaoAgrupamento extends conexoes.ConexaoMySql{
         }
         
         return listaAgrupamentos;
+    }
+    
+    public ModelAgrupamento retornarAgrupamentoPorCodDAO(int codAgrupamento){
+        ModelAgrupamento agrupamento = new ModelAgrupamento();
+        String sql = "SELECT * FROM AGRUPAMENTO WHERE CODAGRUPAMENTO = " + codAgrupamento;
+        
+        try {
+            this.conectar();
+            this.executarSQL(sql);
+            while (this.getResultSet().next()){
+                agrupamento.setCodAgrupamento(this.getResultSet().getInt("CODAGRUPAMENTO"));
+                agrupamento.setDescAgrupamento(this.getResultSet().getString("DSCAGRUPAMENTO"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoAgrupamento.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.fecharConexao();
+        }
+        
+        return agrupamento;
     }
 }

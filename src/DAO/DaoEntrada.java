@@ -27,8 +27,8 @@ public class DaoEntrada extends conexoes.ConexaoMySql{
             this.executarSQL(sql);
             while(this.getResultSet().next()){
                 ModelEntrada modelEntrada = new ModelEntrada();
-                modelEntrada.setCodEntrada(this.getResultSet().getInt(1));
-                modelEntrada.setDescEntrada(this.getResultSet().getString(2));
+                modelEntrada.setCodEntrada(this.getResultSet().getInt("CODENTRADA"));
+                modelEntrada.setDescEntrada(this.getResultSet().getString("DESCENTRADA"));
                 
                 listaEntradas.add(modelEntrada);
             }
@@ -39,5 +39,27 @@ public class DaoEntrada extends conexoes.ConexaoMySql{
         }
         
         return listaEntradas;
+    }
+    
+    public ModelEntrada retornarEntradaPorCodDAO(int codEntrada){
+        ModelEntrada modelEntrada = new ModelEntrada();
+        String sql = "SELECT * FROM ENTRADA WHERE CODENTRADA = " + codEntrada;
+        
+        try {
+            this.conectar();
+            this.executarSQL(sql);
+            
+            this.getResultSet().next();
+            
+            modelEntrada.setCodEntrada(this.getResultSet().getInt("CODENTRADA"));
+            modelEntrada.setDescEntrada(this.getResultSet().getString("DESCENTRADA"));
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoEntrada.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.fecharConexao();
+        }
+        
+        return modelEntrada;
     }
 }
